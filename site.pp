@@ -57,5 +57,5 @@ node 'nfserver.example.com' {
 }
 
 node default {
-	include role_jenkins
+	include common_class
 }

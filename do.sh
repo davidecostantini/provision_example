@@ -50,7 +50,7 @@ if [ "$role" = "master" ]; then
 	puppet module install puppetlabs-haproxy
 	puppet module install aptituz-ssh
 	puppet module install puppetlabs-lvm
-	puppet module install derdanne-nfs
+	#puppet module install derdanne-nfs
 	puppet module install jgreat-docker
 	puppet module install evenup-beaver
 	puppet module install puppetlabs-apt
