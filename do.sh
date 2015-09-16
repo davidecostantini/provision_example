@@ -59,11 +59,11 @@ if [ "$role" = "master" ]; then
 	puppet module install elasticsearch-elasticsearch
 	puppet module install elasticsearch-logstash
 	puppet module install camptocamp-kibana
-	puppet module install camptocamp-kibana
 	puppet module install wdijkerman-zabbix
 	puppet module install camptocamp-openssl
 	puppet module install thias-openvpn
 	puppet module install rtyler-jenkins
+	puppet module install haraldsk-nfs
 
 	#Adding autosign
 	echo "[master]" >> /etc/puppet/puppet.conf

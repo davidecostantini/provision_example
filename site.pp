@@ -1,3 +1,6 @@
+###Variables
+$subnet = "192.168.1.0/24"
+
 ###Classes
 class common_class {
 
@@ -13,6 +16,11 @@ class common_class {
 	  proto  => 'all',
 	  action => 'accept'
 	}
+
+	include nfs::client
+	Nfs::Client::Mount <<| |>> {
+		ensure => 'mounted'
+	}	
 }
 
 ##Roles
@@ -25,8 +33,29 @@ class role_jenkins {
 	include jenkins
 }
 
+class role_jenkins {
+	include common_class 
+	include nfs::server
+
+	file { "/data_folder":
+	    ensure => "directory",
+	}
+
+	nfs::server::export{ '/data_folder':
+	ensure  => 'mounted',
+	clients => "${subnet}(rw,insecure,async,no_root_squash) localhost(rw)"
+	require	=> File['/data_folder']
+}
 
 ###Start
-node 'www1.example.com' {
+node 'jenkins.example.com' {
+	include role_jenkins
+}
+
+node 'nfserver.example.com' {
+	include role_nfsserver
+}
+
+node default {
 	include role_jenkins
 }
